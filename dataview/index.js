@@ -2,7 +2,7 @@ import {_WeakMap as $j0RlC$_WeakMap} from "@portal-solutions/semble-weak-map";
 
 
 const $b0f0a6de3ce6babc$var$_data = new (0, $j0RlC$_WeakMap)();
-var $b0f0a6de3ce6babc$var$hide = function() {
+const $b0f0a6de3ce6babc$var$hide = function() {
     // check if we're in ES5
     if (typeof Object.getOwnPropertyNames === 'function' && !('prototype' in Object.getOwnPropertyNames)) {
         var hidden = {
@@ -18,6 +18,8 @@ var $b0f0a6de3ce6babc$var$hide = function() {
 function $b0f0a6de3ce6babc$var$define(object, props) {
     for(var key in props)object[key] = props[key];
 }
+const $b0f0a6de3ce6babc$var$_Uint8Array = globalThis.Uint8Array ?? class UnusedUint8Array {
+};
 const $b0f0a6de3ce6babc$export$bb9d876482492a0e = 'ArrayBuffer' in globalThis ? globalThis.ArrayBuffer : function() {
     var min = Math.min, max = Math.max, char = String.fromCharCode;
     var chars = {}, indices = [];
@@ -63,7 +65,9 @@ const $b0f0a6de3ce6babc$export$bb9d876482492a0e = 'ArrayBuffer' in globalThis ? 
     // ### ArrayBuffer ###
     // ###################
     function ArrayBuffer(length) {
-        if (length instanceof ArrayBuffer) $b0f0a6de3ce6babc$var$_data.set(this, $b0f0a6de3ce6babc$var$_data.get(length).slice());
+        if (length instanceof $b0f0a6de3ce6babc$export$bb9d876482492a0e) $b0f0a6de3ce6babc$var$_data.set(this, ($b0f0a6de3ce6babc$var$_data.get(length) ?? [
+            ...new $b0f0a6de3ce6babc$var$_Uint8Array(length)
+        ]).slice());
         else if (typeof length === 'string') $b0f0a6de3ce6babc$var$_data.set(this, readString(length));
         else {
             if ((length >>= 0) < 0) throw new RangeError('ArrayBuffer length must be non-negative');
@@ -88,8 +92,6 @@ const $b0f0a6de3ce6babc$export$bb9d876482492a0e = 'ArrayBuffer' in globalThis ? 
     });
     return ArrayBuffer;
 }();
-const $b0f0a6de3ce6babc$var$_Uint8Array = globalThis.Uint8Array ?? class UnusedUint8Array {
-};
 const $b0f0a6de3ce6babc$export$fee260b073a0c9c6 = 'DataView' in globalThis ? globalThis.DataView : function() {
     var log = Math.log, pow = Math.pow, LN2 = Math.LN2;
     // Joyent copyright applies to readFloat and writeFloat

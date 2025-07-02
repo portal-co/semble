@@ -1,6 +1,6 @@
 import { _WeakMap } from "@portal-solutions/semble-weak-map";
 const _data: WeakMap<any, number[]> = new _WeakMap();
-var hide = (function () {
+const hide = (function () {
     // check if we're in ES5
     if (typeof Object.getOwnPropertyNames === 'function' && !('prototype' in Object.getOwnPropertyNames)) {
         var hidden = { enumerable: false };
@@ -19,7 +19,7 @@ function define(object, props) {
         object[key] = props[key];
     }
 }
-
+const _Uint8Array = globalThis.Uint8Array ?? class UnusedUint8Array { };
 
 export const _ArrayBuffer: typeof ArrayBuffer = 'ArrayBuffer' in globalThis ? globalThis.ArrayBuffer : (function () {
     var min = Math.min,
@@ -115,8 +115,8 @@ export const _ArrayBuffer: typeof ArrayBuffer = 'ArrayBuffer' in globalThis ? gl
     // ###################
 
     function ArrayBuffer(length) {
-        if (length instanceof ArrayBuffer) {
-            _data.set(this, _data.get(length)!.slice());
+        if (length instanceof _ArrayBuffer) {
+            _data.set(this, (_data.get(length) ?? [...new _Uint8Array(length)]).slice());
         } else if (typeof length === 'string') {
             _data.set(this, readString(length));
         } else {
@@ -154,7 +154,7 @@ export const _ArrayBuffer: typeof ArrayBuffer = 'ArrayBuffer' in globalThis ? gl
     return ArrayBuffer;
 })() as any;
 
-const _Uint8Array = globalThis.Uint8Array ?? class UnusedUint8Array { };
+
 
 export const _DataView: typeof DataView = 'DataView' in globalThis ? globalThis.DataView : (function () {
     var log = Math.log,
