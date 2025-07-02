@@ -292,7 +292,11 @@ const $b0f0a6de3ce6babc$export$fee260b073a0c9c6 = 'DataView' in globalThis ? glo
     });
     return DataView;
 }();
+const $b0f0a6de3ce6babc$export$fdecce9c58909361 = ((x)=>Object.keys(x).reduce((p, c)=>({
+            ...p,
+            [c]: x[c].call.bind(x[c])
+        }), {}))($b0f0a6de3ce6babc$export$fee260b073a0c9c6.prototype);
 
 
-export {$b0f0a6de3ce6babc$export$bb9d876482492a0e as _ArrayBuffer, $b0f0a6de3ce6babc$export$fee260b073a0c9c6 as _DataView};
+export {$b0f0a6de3ce6babc$export$bb9d876482492a0e as _ArrayBuffer, $b0f0a6de3ce6babc$export$fee260b073a0c9c6 as _DataView, $b0f0a6de3ce6babc$export$fdecce9c58909361 as _DataView_prototype};
 //# sourceMappingURL=index.js.map

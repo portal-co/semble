@@ -450,3 +450,4 @@ export const _DataView: typeof DataView = 'DataView' in globalThis ? globalThis.
 
     return DataView;
 })() as any;
+export const _DataView_prototype: any = (x => Object.keys(x).reduce((p, c) => ({ ...p, [c]: x[c].call.bind(x[c]) }), {}))(_DataView.prototype)
