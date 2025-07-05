@@ -1,6 +1,6 @@
 {
   "name": "@portal-solutions/semble-dataview",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,6 @@
   "types": "index.d.ts",
   "source": "index.ts",
   "dependencies": {
-    "@portal-solutions/semble-weak-map": "^1.0.0"
+    "@portal-solutions/semble-weak-map": "^0.1.0"
   }
 }
