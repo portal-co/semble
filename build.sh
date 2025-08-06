@@ -1,2 +1,2 @@
 cd $(dirname $0)
-npx parcel build ./weak-map ./dataview
+npx parcel build ./weak-map ./dataview ./proxy ./common

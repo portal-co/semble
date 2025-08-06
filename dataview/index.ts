@@ -19,7 +19,7 @@ function define(object, props) {
         object[key] = props[key];
     }
 }
-const _Uint8Array = globalThis.Uint8Array ?? class UnusedUint8Array { };
+const _Uint8Array: typeof Uint8Array = 'Uint8Array' in globalThis ? globalThis.Uint8Array : (class UnusedUint8Array { } as any);
 
 export const _ArrayBuffer: typeof ArrayBuffer = 'ArrayBuffer' in globalThis ? globalThis.ArrayBuffer : (function () {
     var min = Math.min,

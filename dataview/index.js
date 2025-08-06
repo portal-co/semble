@@ -18,7 +18,7 @@ const $b0f0a6de3ce6babc$var$hide = function() {
 function $b0f0a6de3ce6babc$var$define(object, props) {
     for(var key in props)object[key] = props[key];
 }
-const $b0f0a6de3ce6babc$var$_Uint8Array = globalThis.Uint8Array ?? class UnusedUint8Array {
+const $b0f0a6de3ce6babc$var$_Uint8Array = 'Uint8Array' in globalThis ? globalThis.Uint8Array : class UnusedUint8Array {
 };
 const $b0f0a6de3ce6babc$export$bb9d876482492a0e = 'ArrayBuffer' in globalThis ? globalThis.ArrayBuffer : function() {
     var min = Math.min, max = Math.max, char = String.fromCharCode;

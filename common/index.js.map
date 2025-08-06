@@ -1,0 +1,1 @@
+{"mappings":"AAAO,MAAM,4CAAe,CAAC;AACtB,MAAM,4CAAgB,CAAA,IAAK,AAAC,CAAA,OAAO,MAAM,YAAY,OAAO,MAAM,QAAO,KAAM,KAAK","sources":["common/index.ts"],"sourcesContent":["export const polyfillKeys = {};\nexport const isPolyfillKey = a => (typeof a === \"string\" || typeof a === \"symbol\") && a in polyfillKeys;"],"names":[],"version":3,"file":"index.js.map"}

@@ -2,7 +2,9 @@
     "name": "@portal-solutions/semble",
     "workspaces": [
         "weak-map",
-        "dataview"
+        "dataview",
+        "proxy",
+        "common"
     ],
     "devDependencies": {
         "@parcel/packager-ts": "^2.15.4",
