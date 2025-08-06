@@ -1,8 +1,8 @@
 {
   "name": "@portal-solutions/semble-common",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
-   "main": "index.js",
+  "main": "index.js",
   "types": "index.d.ts",
   "source": "index.ts",
   "scripts": {
@@ -12,7 +12,5 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "dependencies": {
-
-  }
+  "dependencies": {}
 }
