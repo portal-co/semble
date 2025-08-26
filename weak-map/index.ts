@@ -1,7 +1,9 @@
 import { polyfillKeys } from "@portal-solutions/semble-common";
-
+const defineProperty = Object?.defineProperty;
+const getOwnPropertyDescriptor = Object?.getOwnPropertyDescriptor;
+const symId = '__SembleWeakMap';
 export let _WeakMap: typeof WeakMap = 'WeakMap' in globalThis ? globalThis.WeakMap : class WeakMapTemp {
-    static __symbol = 'Symbol' in globalThis ? globalThis.Symbol(`__SembleWeakMap`) : `__SembleWeakMap`;
+    static __symbol = 'Symbol' in globalThis ? globalThis.Symbol(symId) : symId;
     static __create = 'create' in Object ? Object.create.bind(Object, null) : () => ({});
     static {
         let symbol = this.__symbol;
@@ -12,13 +14,21 @@ export let _WeakMap: typeof WeakMap = 'WeakMap' in globalThis ? globalThis.WeakM
                 continue
             }; Object[a] = 'Proxy' in globalThis ? new globalThis.Proxy(Object[a], {
                 apply(target, thisArg, argArray) {
-                    argArray[0][symbol] ??= WeakMapTemp.__create();
+                    WeakMapTemp.__get(argArray[0]);
                     return Reflect.apply(target, thisArg, argArray);
                 },
-            }) : ((old, b, ...args) => { b[this.__symbol] ??= WeakMapTemp.__create(); return old(b, ...args) }).bind(null, Object[a].bind(Object))
+            }) : ((old, b, ...args) => { WeakMapTemp.__get(b); return old(b, ...args) }).bind(null, Object[a].bind(Object))
         }
     }
     static __get(a: any): { [a: string]: any } {
+        if (getOwnPropertyDescriptor && defineProperty) {
+            const desc = getOwnPropertyDescriptor(a, this.__symbol);
+            if (desc) return desc.value;
+            const value = WeakMapTemp.__create();
+            defineProperty(a, this.__symbol, { value, enumerable: false, writable: true, configurable: false });
+            return value;
+        }
+        if (defineProperty && !(this.__symbol in a)) defineProperty(a, this.__symbol, { value: WeakMapTemp.__create(), enumerable: false, writable: true, configurable: false });
         return (a[this.__symbol] ??= WeakMapTemp.__create())
     }
     id: string;

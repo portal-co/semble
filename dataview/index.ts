@@ -1,18 +1,7 @@
 import { _WeakMap } from "@portal-solutions/semble-weak-map";
+import {hide} from "@portal-solutions/semble-common";
 const _data: WeakMap<any, number[]> = new _WeakMap();
-const hide = (function () {
-    // check if we're in ES5
-    if (typeof Object.getOwnPropertyNames === 'function' && !('prototype' in Object.getOwnPropertyNames)) {
-        var hidden = { enumerable: false };
 
-        return function (object, key) {
-            Object.defineProperty(object, key, hidden);
-        };
-    }
-
-    // noop for ES3
-    return function () { };
-})();
 
 function define(object, props) {
     for (var key in props) {
