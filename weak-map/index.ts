@@ -9,15 +9,15 @@ export let _WeakMap: typeof WeakMap = 'WeakMap' in globalThis ? globalThis.WeakM
         let symbol = this.__symbol;
         polyfillKeys[symbol] = true;
         let create = this.__create;
-        for (var a of ['seal', 'freeze']) {
+        for (var a of ['seal', 'freeze','preventExtensions']) {
             if (!(a in Object)) {
                 continue
-            }; Object[a] = 'Proxy' in globalThis ? new globalThis.Proxy(Object[a], {
+            }; Object[a] = 'Proxy' in globalThis ? (apply => new globalThis.Proxy(Object[a], {
                 apply(target, thisArg, argArray) {
                     WeakMapTemp.__get(argArray[0]);
-                    return Reflect.apply(target, thisArg, argArray);
+                    return apply(target, thisArg, argArray);
                 },
-            }) : ((old, b, ...args) => { WeakMapTemp.__get(b); return old(b, ...args) }).bind(null, Object[a].bind(Object))
+            }))(Reflect.apply.bind(Reflect)) : ((old, b, ...args) => { WeakMapTemp.__get(b); return old(b, ...args) }).bind(null, Object[a].bind(Object))
         }
     }
     static __get(a: any): { [a: string]: any } {
