@@ -9,42 +9,42 @@ export let _WeakMap: typeof WeakMap = 'WeakMap' in globalThis ? globalThis.WeakM
         let symbol = this.__symbol;
         polyfillKeys[symbol] = true;
         let create = this.__create;
-        for (var a of ['seal', 'freeze','preventExtensions']) {
-            if (!(a in Object)) {
+        for (var objectProperty of ['seal', 'freeze','preventExtensions']) {
+            if (!(objectProperty in Object)) {
                 continue
-            }; Object[a] = 'Proxy' in globalThis ? (apply => new globalThis.Proxy(Object[a], {
+            }; Object[objectProperty] = 'Proxy' in globalThis ? (apply => new globalThis.Proxy(Object[objectProperty], {
                 apply(target, thisArg, argArray) {
                     WeakMapTemp.__get(argArray[0]);
                     return apply(target, thisArg, argArray);
                 },
-            }))(Reflect.apply.bind(Reflect)) : ((old, b, ...args) => { WeakMapTemp.__get(b); return old(b, ...args) }).bind(null, Object[a].bind(Object))
+            }))(Reflect.apply.bind(Reflect)) : ((old, b, ...args) => { WeakMapTemp.__get(b); return old(b, ...args) }).bind(null, Object[objectProperty].bind(Object))
         }
     }
-    static __get(a: any): { [a: string]: any } {
+    static __get(target: any): { [a: string]: any } {
         if (getOwnPropertyDescriptor && defineProperty) {
-            const desc = getOwnPropertyDescriptor(a, this.__symbol);
+            const desc = getOwnPropertyDescriptor(target, this.__symbol);
             if (desc) return desc.value;
             const value = WeakMapTemp.__create();
-            defineProperty(a, this.__symbol, { value, enumerable: false, writable: true, configurable: false });
+            defineProperty(target, this.__symbol, { value, enumerable: false, writable: true, configurable: false });
             return value;
         }
-        if (defineProperty && !(this.__symbol in a)) defineProperty(a, this.__symbol, { value: WeakMapTemp.__create(), enumerable: false, writable: true, configurable: false });
-        return (a[this.__symbol] ??= WeakMapTemp.__create())
+        if (defineProperty && !(this.__symbol in target)) defineProperty(target, this.__symbol, { value: WeakMapTemp.__create(), enumerable: false, writable: true, configurable: false });
+        return (target[this.__symbol] ??= WeakMapTemp.__create())
     }
     id: string;
     constructor() {
         this.id = Math.random() + "";
     };
-    delete(o) {
-        delete WeakMapTemp.__get(o)[this.id];
+    delete(object) {
+        delete WeakMapTemp.__get(object)[this.id];
     }
-    has(o) {
-        return this.id in WeakMapTemp.__get(o);
+    has(object) {
+        return this.id in WeakMapTemp.__get(object);
     }
-    get(o) {
-        return WeakMapTemp.__get(o)[this.id]
+    get(object) {
+        return WeakMapTemp.__get(object)[this.id]
     }
-    set(o, v) {
-        WeakMapTemp.__get(o)[this.id] = v;
+    set(object, value) {
+        WeakMapTemp.__get(object)[this.id] = value;
     }
 } as any;

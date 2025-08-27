@@ -19,7 +19,7 @@ const $b5032d99bc4c7ee9$export$c7c8cae26635c874 = 'Reflect' in globalThis ? glob
     construct: (target, args, self)=>$b5032d99bc4c7ee9$var$_proxyData.has(target) && 'construct' in $b5032d99bc4c7ee9$var$_proxyData.get(target).handler ? $b5032d99bc4c7ee9$var$_proxyData.get(target).handler.construct($b5032d99bc4c7ee9$var$_proxyData.get(target).object, args, self) : target === self ? new target(...args) : $b5032d99bc4c7ee9$export$c7c8cae26635c874.apply(target, self, args),
     get: $b5032d99bc4c7ee9$var$protoChained((object, key)=>$b5032d99bc4c7ee9$var$_proxyData.has(object) && 'get' in $b5032d99bc4c7ee9$var$_proxyData.get(object).handler && !(0, $jgfBo$isPolyfillKey)(key) ? $b5032d99bc4c7ee9$var$_proxyData.get(object).handler.get($b5032d99bc4c7ee9$var$_proxyData.get(object).object, key, object) : object[key]),
     set: $b5032d99bc4c7ee9$var$protoChained((object, key, value)=>$b5032d99bc4c7ee9$var$_proxyData.has(object) && 'set' in $b5032d99bc4c7ee9$var$_proxyData.get(object).handler && !(0, $jgfBo$isPolyfillKey)(key) ? $b5032d99bc4c7ee9$var$_proxyData.get(object).handler.set($b5032d99bc4c7ee9$var$_proxyData.get(object).object, key, value, object) : (object[key] = value, true)),
-    setPrototypeOf: ((old, a, b)=>(old(a, b), true)).bind(null, 'setPrototypeOf' in Object ? Object.setPrototypeOf.bind(Object) : (a, b)=>(a.__proto__ = b, a))
+    setPrototypeOf: ((old, object, proto)=>(old(object, proto), true)).bind(null, 'setPrototypeOf' in Object ? Object.setPrototypeOf.bind(Object) : (object, proto)=>(object.__proto__ = proto, object))
 };
 const $b5032d99bc4c7ee9$export$38ba3e7950588cca = 'Proxy' in globalThis ? globalThis.Proxy : class ProxyTemp extends Function {
     static{

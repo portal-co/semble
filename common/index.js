@@ -1,5 +1,5 @@
 const $a131fa01916a4957$export$6ff5fd5b618947f0 = {};
-const $a131fa01916a4957$export$2cf60a7ba5fdc250 = (a)=>(typeof a === "string" || typeof a === "symbol") && a in $a131fa01916a4957$export$6ff5fd5b618947f0;
+const $a131fa01916a4957$export$2cf60a7ba5fdc250 = (potentialKey)=>(typeof potentialKey === "string" || typeof potentialKey === "symbol") && potentialKey in $a131fa01916a4957$export$6ff5fd5b618947f0;
 const $a131fa01916a4957$export$fe8985bb6374093c = function() {
     // check if we're in ES5
     if (typeof Object.getOwnPropertyNames === 'function' && !('prototype' in Object.getOwnPropertyNames)) {

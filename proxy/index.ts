@@ -21,7 +21,7 @@ export const _Reflect: typeof Reflect = 'Reflect' in globalThis ? globalThis.Ref
     construct: (target, args, self) => _proxyData.has(target) && 'construct' in _proxyData.get(target)!.handler! ? _proxyData.get(target)!.handler.construct!(_proxyData.get(target)!.object, args, self) : target === self ? new target(...args) : _Reflect.apply(target, self, args),
     get: protoChained((object, key) => _proxyData.has(object) && 'get' in _proxyData.get(object)!.handler && !isPolyfillKey(key) ? _proxyData.get(object)!.handler.get!(_proxyData.get(object)!.object, key, object) : object[key]),
     set: protoChained((object, key, value) => _proxyData.has(object) && 'set' in _proxyData.get(object)!.handler && !isPolyfillKey(key) ? (_proxyData.get(object)!.handler.set!(_proxyData.get(object)!.object, key, value, object)) : (((object as any)[key] = value), true)),
-    setPrototypeOf: ((old, a, b) => (old(a, b), true)).bind(null, 'setPrototypeOf' in Object ? Object.setPrototypeOf.bind(Object) : ((a, b) => (a.__proto__ = b, a)))
+    setPrototypeOf: ((old, object, proto) => (old(object, proto), true)).bind(null, 'setPrototypeOf' in Object ? Object.setPrototypeOf.bind(Object) : ((object, proto) => (object.__proto__ = proto, object)))
 }) as any;
 export const _Proxy: typeof Proxy = 'Proxy' in globalThis ? globalThis.Proxy : (class ProxyTemp extends Function {
     static __call = Function.prototype.call.call.bind(Function.prototype.call);
