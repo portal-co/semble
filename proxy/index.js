@@ -22,9 +22,7 @@ const $b5032d99bc4c7ee9$export$c7c8cae26635c874 = 'Reflect' in globalThis ? glob
     setPrototypeOf: ((old, object, proto)=>(old(object, proto), true)).bind(null, 'setPrototypeOf' in Object ? Object.setPrototypeOf.bind(Object) : (object, proto)=>(object.__proto__ = proto, object))
 };
 const $b5032d99bc4c7ee9$export$38ba3e7950588cca = 'Proxy' in globalThis ? globalThis.Proxy : class ProxyTemp extends Function {
-    static{
-        this.__call = Function.prototype.call.call.bind(Function.prototype.call);
-    }
+    static __call = Function.prototype.call.call.bind(Function.prototype.call);
     constructor(object, handler){
         const m = ProxyTemp.__create(object, handler);
         $b5032d99bc4c7ee9$export$c7c8cae26635c874.setPrototypeOf(m, ProxyTemp.prototype);

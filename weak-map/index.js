@@ -5,12 +5,8 @@ const $812c501c172fea14$var$defineProperty = Object?.defineProperty;
 const $812c501c172fea14$var$getOwnPropertyDescriptor = Object?.getOwnPropertyDescriptor;
 const $812c501c172fea14$var$symId = '__SembleWeakMap';
 let $812c501c172fea14$export$bc81b4c74ea2198d = 'WeakMap' in globalThis ? globalThis.WeakMap : class WeakMapTemp {
-    static{
-        this.__symbol = 'Symbol' in globalThis ? globalThis.Symbol($812c501c172fea14$var$symId) : $812c501c172fea14$var$symId;
-    }
-    static{
-        this.__create = 'create' in Object ? Object.create.bind(Object, null) : ()=>({});
-    }
+    static __symbol = 'Symbol' in globalThis ? globalThis.Symbol($812c501c172fea14$var$symId) : $812c501c172fea14$var$symId;
+    static __create = 'create' in Object ? Object.create.bind(Object, null) : ()=>({});
     static{
         let symbol = this.__symbol;
         (0, $3YwHo$polyfillKeys)[symbol] = true;
@@ -53,6 +49,7 @@ let $812c501c172fea14$export$bc81b4c74ea2198d = 'WeakMap' in globalThis ? global
         });
         return target[this.__symbol] ??= WeakMapTemp.__create();
     }
+    id;
     constructor(){
         this.id = Math.random() + "";
     }
