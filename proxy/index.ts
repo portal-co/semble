@@ -1,6 +1,7 @@
 import { _WeakMap } from "@portal-solutions/semble-weak-map";
 // import { polyfillKeys } from "@portal-solutions/semble-common";
 import { isPolyfillKey } from "@portal-solutions/semble-common";
+import { descGet, descSet,desc } from "@portal-solutions/semble-common";
 
 const _proxyData: WeakMap<any, { object: any, handler: ProxyHandler<any> }> = new _WeakMap();
 function protoChain<T extends object, X extends keyof T, U, Args extends unknown[]>(val: T, key: X, f: <T2 extends { [X2 in X]: any }>(t: T2, key: X, ...args: Args) => U, ...args: Args): U {
@@ -19,8 +20,9 @@ function protoChained<T extends object, X extends keyof T, U, Args extends unkno
 export const _Reflect: typeof Reflect = 'Reflect' in globalThis ? globalThis.Reflect : ({
     apply: Function.prototype.apply.call.bind(Function.prototype.apply),
     construct: (target, args, self) => _proxyData.has(target) && 'construct' in _proxyData.get(target)!.handler! ? _proxyData.get(target)!.handler.construct!(_proxyData.get(target)!.object, args, self) : target === self ? new target(...args) : _Reflect.apply(target, self, args),
-    get: protoChained((object, key) => _proxyData.has(object) && 'get' in _proxyData.get(object)!.handler && !isPolyfillKey(key) ? _proxyData.get(object)!.handler.get!(_proxyData.get(object)!.object, key, object) : object[key]),
-    set: protoChained((object, key, value) => _proxyData.has(object) && 'set' in _proxyData.get(object)!.handler && !isPolyfillKey(key) ? (_proxyData.get(object)!.handler.set!(_proxyData.get(object)!.object, key, value, object)) : (((object as any)[key] = value), true)),
+    get: protoChained((object, key) => _proxyData.has(object) && 'get' in _proxyData.get(object)!.handler && !isPolyfillKey(key) ? _proxyData.get(object)!.handler.get!(_proxyData.get(object)!.object, key, object) : descGet(object, key)),
+    set: protoChained((object, key, value) => _proxyData.has(object) && 'set' in _proxyData.get(object)!.handler && !isPolyfillKey(key) ? (_proxyData.get(object)!.handler.set!(_proxyData.get(object)!.object, key, value, object)) : (descSet(object, key, value), true)),
+    has: protoChained((object,key) => _proxyData.has(object) && 'has' in _proxyData.get(object)!.handler && !isPolyfillKey(key) ? _proxyData.get(object)!.handler.has!(_proxyData.get(object)!.object, key) : desc(object,key)!==null),
     setPrototypeOf: ((old, a, b) => (old(a, b), true)).bind(null, 'setPrototypeOf' in Object ? Object.setPrototypeOf.bind(Object) : ((a, b) => (a.__proto__ = b, a)))
 }) as any;
 export const _Proxy: typeof Proxy = 'Proxy' in globalThis ? globalThis.Proxy : (class ProxyTemp extends Function {
