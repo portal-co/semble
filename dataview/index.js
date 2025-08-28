@@ -2,19 +2,6 @@ import {_WeakMap as $j0RlC$_WeakMap} from "@portal-solutions/semble-weak-map";
 
 
 const $b0f0a6de3ce6babc$var$_data = new (0, $j0RlC$_WeakMap)();
-const $b0f0a6de3ce6babc$var$hide = function() {
-    // check if we're in ES5
-    if (typeof Object.getOwnPropertyNames === 'function' && !('prototype' in Object.getOwnPropertyNames)) {
-        var hidden = {
-            enumerable: false
-        };
-        return function(object, key) {
-            Object.defineProperty(object, key, hidden);
-        };
-    }
-    // noop for ES3
-    return function() {};
-}();
 function $b0f0a6de3ce6babc$var$define(object, props) {
     for(var key in props)object[key] = props[key];
 }

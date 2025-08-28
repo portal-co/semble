@@ -1,50 +1,69 @@
 import {polyfillKeys as $3YwHo$polyfillKeys} from "@portal-solutions/semble-common";
 
 
+const $812c501c172fea14$var$defineProperty = Object?.defineProperty;
+const $812c501c172fea14$var$getOwnPropertyDescriptor = Object?.getOwnPropertyDescriptor;
+const $812c501c172fea14$var$symId = '__SembleWeakMap';
 let $812c501c172fea14$export$bc81b4c74ea2198d = 'WeakMap' in globalThis ? globalThis.WeakMap : class WeakMapTemp {
-    static{
-        this.__symbol = 'Symbol' in globalThis ? globalThis.Symbol(`__SembleWeakMap`) : `__SembleWeakMap`;
-    }
-    static{
-        this.__create = 'create' in Object ? Object.create.bind(Object, null) : ()=>({});
-    }
+    static __symbol = 'Symbol' in globalThis ? globalThis.Symbol($812c501c172fea14$var$symId) : $812c501c172fea14$var$symId;
+    static __create = 'create' in Object ? Object.create.bind(Object, null) : ()=>({});
     static{
         let symbol = this.__symbol;
         (0, $3YwHo$polyfillKeys)[symbol] = true;
         let create = this.__create;
-        for (var a of [
+        for (var objectProperty of [
             'seal',
-            'freeze'
+            'freeze',
+            'preventExtensions'
         ]){
-            if (!(a in Object)) continue;
-            Object[a] = 'Proxy' in globalThis ? new globalThis.Proxy(Object[a], {
-                apply (target, thisArg, argArray) {
-                    argArray[0][symbol] ??= WeakMapTemp.__create();
-                    return Reflect.apply(target, thisArg, argArray);
-                }
-            }) : ((old, b, ...args)=>{
-                b[this.__symbol] ??= WeakMapTemp.__create();
+            if (!(objectProperty in Object)) continue;
+            Object[objectProperty] = 'Proxy' in globalThis ? ((apply)=>new globalThis.Proxy(Object[objectProperty], {
+                    apply (target, thisArg, argArray) {
+                        WeakMapTemp.__get(argArray[0]);
+                        return apply(target, thisArg, argArray);
+                    }
+                }))(Reflect.apply.bind(Reflect)) : ((old, b, ...args)=>{
+                WeakMapTemp.__get(b);
                 return old(b, ...args);
-            }).bind(null, Object[a].bind(Object));
+            }).bind(null, Object[objectProperty].bind(Object));
         }
     }
-    static __get(a) {
-        return a[this.__symbol] ??= WeakMapTemp.__create();
+    static __get(target) {
+        if ($812c501c172fea14$var$getOwnPropertyDescriptor && $812c501c172fea14$var$defineProperty) {
+            const desc = $812c501c172fea14$var$getOwnPropertyDescriptor(target, this.__symbol);
+            if (desc) return desc.value;
+            const value = WeakMapTemp.__create();
+            $812c501c172fea14$var$defineProperty(target, this.__symbol, {
+                value: value,
+                enumerable: false,
+                writable: true,
+                configurable: false
+            });
+            return value;
+        }
+        if ($812c501c172fea14$var$defineProperty && !(this.__symbol in target)) $812c501c172fea14$var$defineProperty(target, this.__symbol, {
+            value: WeakMapTemp.__create(),
+            enumerable: false,
+            writable: true,
+            configurable: false
+        });
+        return target[this.__symbol] ??= WeakMapTemp.__create();
     }
+    id;
     constructor(){
         this.id = Math.random() + "";
     }
-    delete(o) {
-        delete WeakMapTemp.__get(o)[this.id];
+    delete(object) {
+        delete WeakMapTemp.__get(object)[this.id];
     }
-    has(o) {
-        return this.id in WeakMapTemp.__get(o);
+    has(object) {
+        return this.id in WeakMapTemp.__get(object);
     }
-    get(o) {
-        return WeakMapTemp.__get(o)[this.id];
+    get(object) {
+        return WeakMapTemp.__get(object)[this.id];
     }
-    set(o, v) {
-        WeakMapTemp.__get(o)[this.id] = v;
+    set(object, value) {
+        WeakMapTemp.__get(object)[this.id] = value;
     }
 };
 
