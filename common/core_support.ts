@@ -78,7 +78,7 @@ export function setNonEnumerableBaseline<T extends object, K extends keyof T>(
   val: T[K],
   desc: PropertyDescriptor = {}
 ): T[K] {
-  if (deft) {
+  if (!deft) {
     return (object[key] = val);
   }
   defineProperty(object, key, {

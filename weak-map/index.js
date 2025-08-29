@@ -3,21 +3,21 @@ import {polyfillKeys as $3YwHo$polyfillKeys} from "@portal-solutions/semble-comm
 
 const $812c501c172fea14$var$defineProperty = Object?.defineProperty;
 const $812c501c172fea14$var$getOwnPropertyDescriptor = Object?.getOwnPropertyDescriptor;
-const $812c501c172fea14$var$symId = '__SembleWeakMap';
-let $812c501c172fea14$export$bc81b4c74ea2198d = 'WeakMap' in globalThis ? globalThis.WeakMap : class WeakMapTemp {
-    static __symbol = 'Symbol' in globalThis ? globalThis.Symbol($812c501c172fea14$var$symId) : $812c501c172fea14$var$symId;
-    static __create = 'create' in Object ? Object.create.bind(Object, null) : ()=>({});
+const $812c501c172fea14$var$symId = "__SembleWeakMap";
+let $812c501c172fea14$export$bc81b4c74ea2198d = "WeakMap" in globalThis ? globalThis.WeakMap : class WeakMapTemp {
+    static __symbol = "Symbol" in globalThis ? globalThis.Symbol($812c501c172fea14$var$symId) : $812c501c172fea14$var$symId;
+    static __create = "create" in Object ? Object.create.bind(Object, null) : ()=>({});
     static{
         let symbol = this.__symbol;
         (0, $3YwHo$polyfillKeys)[symbol] = true;
         let create = this.__create;
         for (var objectProperty of [
-            'seal',
-            'freeze',
-            'preventExtensions'
+            "seal",
+            "freeze",
+            "preventExtensions"
         ]){
             if (!(objectProperty in Object)) continue;
-            Object[objectProperty] = 'Proxy' in globalThis ? ((apply)=>new globalThis.Proxy(Object[objectProperty], {
+            Object[objectProperty] = "Proxy" in globalThis ? ((apply)=>new globalThis.Proxy(Object[objectProperty], {
                     apply (target, thisArg, argArray) {
                         WeakMapTemp.__get(argArray[0]);
                         return apply(target, thisArg, argArray);

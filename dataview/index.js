@@ -5,9 +5,9 @@ const $b0f0a6de3ce6babc$var$_data = new (0, $j0RlC$_WeakMap)();
 function $b0f0a6de3ce6babc$var$define(object, props) {
     for(var key in props)object[key] = props[key];
 }
-const $b0f0a6de3ce6babc$var$_Uint8Array = 'Uint8Array' in globalThis ? globalThis.Uint8Array : class UnusedUint8Array {
+const $b0f0a6de3ce6babc$var$_Uint8Array = "Uint8Array" in globalThis ? globalThis.Uint8Array : class UnusedUint8Array {
 };
-const $b0f0a6de3ce6babc$export$bb9d876482492a0e = 'ArrayBuffer' in globalThis ? globalThis.ArrayBuffer : function() {
+const $b0f0a6de3ce6babc$export$bb9d876482492a0e = "ArrayBuffer" in globalThis ? globalThis.ArrayBuffer : function() {
     var min = Math.min, max = Math.max, char = String.fromCharCode;
     var chars = {}, indices = [];
     // create cached mapping of characters to char codes and back
@@ -33,7 +33,7 @@ const $b0f0a6de3ce6babc$export$bb9d876482492a0e = 'ArrayBuffer' in globalThis ? 
         try {
             return char.apply(null, array);
         } catch (e) {}
-        var string = '', cycles = array.length % 8, index = 0;
+        var string = "", cycles = array.length % 8, index = 0;
         while(cycles--)string += indices[array[index++]];
         cycles = array.length >> 3;
         while(cycles--){
@@ -55,9 +55,9 @@ const $b0f0a6de3ce6babc$export$bb9d876482492a0e = 'ArrayBuffer' in globalThis ? 
         if (length instanceof $b0f0a6de3ce6babc$export$bb9d876482492a0e) $b0f0a6de3ce6babc$var$_data.set(this, ($b0f0a6de3ce6babc$var$_data.get(length) ?? [
             ...new $b0f0a6de3ce6babc$var$_Uint8Array(length)
         ]).slice());
-        else if (typeof length === 'string') $b0f0a6de3ce6babc$var$_data.set(this, readString(length));
+        else if (typeof length === "string") $b0f0a6de3ce6babc$var$_data.set(this, readString(length));
         else {
-            if ((length >>= 0) < 0) throw new RangeError('ArrayBuffer length must be non-negative');
+            if ((length >>= 0) < 0) throw new RangeError("ArrayBuffer length must be non-negative");
             $b0f0a6de3ce6babc$var$_data.set(this, zerodArray(length));
         }
         this.byteLength = $b0f0a6de3ce6babc$var$_data.get(this).length;
@@ -65,7 +65,7 @@ const $b0f0a6de3ce6babc$export$bb9d876482492a0e = 'ArrayBuffer' in globalThis ? 
     }
     $b0f0a6de3ce6babc$var$define(ArrayBuffer, {
         toByteString: function toByteString(arraybuffer) {
-            if (!(arraybuffer instanceof ArrayBuffer)) throw new TypeError('ArrayBuffer.toByteString requires an ArrayBuffer');
+            if (!(arraybuffer instanceof ArrayBuffer)) throw new TypeError("ArrayBuffer.toByteString requires an ArrayBuffer");
             return writeString($b0f0a6de3ce6babc$var$_data.get(arraybuffer));
         }
     });
@@ -79,7 +79,7 @@ const $b0f0a6de3ce6babc$export$bb9d876482492a0e = 'ArrayBuffer' in globalThis ? 
     });
     return ArrayBuffer;
 }();
-const $b0f0a6de3ce6babc$export$fee260b073a0c9c6 = 'DataView' in globalThis ? globalThis.DataView : function() {
+const $b0f0a6de3ce6babc$export$fee260b073a0c9c6 = "DataView" in globalThis ? globalThis.DataView : function() {
     var log = Math.log, pow = Math.pow, LN2 = Math.LN2;
     // Joyent copyright applies to readFloat and writeFloat
     // Copyright Joyent, Inc. and other Node contributors.
@@ -188,8 +188,8 @@ const $b0f0a6de3ce6babc$export$fee260b073a0c9c6 = 'DataView' in globalThis ? glo
         return b0 | b1 | b2 | b3;
     }
     function boundsCheck(offset, size, max) {
-        if (offset < 0) throw new RangeError('Tried to write to a negative index');
-        else if (offset + size > max) throw new RangeError('Tried to write ' + size + ' bytes past the end of a buffer at index ' + offset + ' of ' + max);
+        if (offset < 0) throw new RangeError("Tried to write to a negative index");
+        else if (offset + size > max) throw new RangeError("Tried to write " + size + " bytes past the end of a buffer at index " + offset + " of " + max);
     }
     function writeUint8(dataview, byteOffset, value) {
         var buffer = $b0f0a6de3ce6babc$var$_data.get(dataview.buffer) ?? new $b0f0a6de3ce6babc$var$_Uint8Array(dataview.buffer), offset = byteOffset + dataview.byteOffset;
@@ -214,14 +214,14 @@ const $b0f0a6de3ce6babc$export$fee260b073a0c9c6 = 'DataView' in globalThis ? glo
     // ### DataView ###
     // ################
     function DataView(buffer, byteOffset, byteLength) {
-        if (!(buffer instanceof $b0f0a6de3ce6babc$export$bb9d876482492a0e)) throw new TypeError('DataView must be initialized with an ArrayBuffer');
+        if (!(buffer instanceof $b0f0a6de3ce6babc$export$bb9d876482492a0e)) throw new TypeError("DataView must be initialized with an ArrayBuffer");
         if (byteOffset === undefined) this.byteOffset = buffer.byteOffset >> 0;
         else this.byteOffset = byteOffset >> 0;
-        if (this.byteOffset < 0) throw new RangeError('DataView byteOffset must be non-negative');
+        if (this.byteOffset < 0) throw new RangeError("DataView byteOffset must be non-negative");
         if (byteLength === undefined) this.byteLength = buffer.byteLength - this.byteOffset >> 0;
         else this.byteLength = byteLength >> 0;
-        if (this.byteLength < 0) throw new RangeError('DataView byteLength must be non-negative');
-        if (this.byteOffset + this.byteLength > buffer.byteLength) throw new RangeError('DataView byteOffset and byteLength greater than ArrayBuffer byteLength');
+        if (this.byteLength < 0) throw new RangeError("DataView byteLength must be non-negative");
+        if (this.byteOffset + this.byteLength > buffer.byteLength) throw new RangeError("DataView byteOffset and byteLength greater than ArrayBuffer byteLength");
         this.buffer = buffer;
     }
     $b0f0a6de3ce6babc$var$define(DataView.prototype, {

@@ -1,5 +1,5 @@
 import {_WeakMap as $jgfBo$_WeakMap} from "@portal-solutions/semble-weak-map";
-import {isPolyfillKey as $jgfBo$isPolyfillKey} from "@portal-solutions/semble-common";
+import {isPolyfillKey as $jgfBo$isPolyfillKey, descGet as $jgfBo$descGet, descSet as $jgfBo$descSet, desc as $jgfBo$desc} from "@portal-solutions/semble-common";
 
 
 
@@ -14,14 +14,15 @@ function $b5032d99bc4c7ee9$var$protoChain(val, key, f, ...args) {
 function $b5032d99bc4c7ee9$var$protoChained(f) {
     return (val, key, ...args)=>$b5032d99bc4c7ee9$var$protoChain(val, key, f, ...args);
 }
-const $b5032d99bc4c7ee9$export$c7c8cae26635c874 = 'Reflect' in globalThis ? globalThis.Reflect : {
+const $b5032d99bc4c7ee9$export$c7c8cae26635c874 = "Reflect" in globalThis ? globalThis.Reflect : {
     apply: Function.prototype.apply.call.bind(Function.prototype.apply),
-    construct: (target, args, self)=>$b5032d99bc4c7ee9$var$_proxyData.has(target) && 'construct' in $b5032d99bc4c7ee9$var$_proxyData.get(target).handler ? $b5032d99bc4c7ee9$var$_proxyData.get(target).handler.construct($b5032d99bc4c7ee9$var$_proxyData.get(target).object, args, self) : target === self ? new target(...args) : $b5032d99bc4c7ee9$export$c7c8cae26635c874.apply(target, self, args),
-    get: $b5032d99bc4c7ee9$var$protoChained((object, key)=>$b5032d99bc4c7ee9$var$_proxyData.has(object) && 'get' in $b5032d99bc4c7ee9$var$_proxyData.get(object).handler && !(0, $jgfBo$isPolyfillKey)(key) ? $b5032d99bc4c7ee9$var$_proxyData.get(object).handler.get($b5032d99bc4c7ee9$var$_proxyData.get(object).object, key, object) : object[key]),
-    set: $b5032d99bc4c7ee9$var$protoChained((object, key, value)=>$b5032d99bc4c7ee9$var$_proxyData.has(object) && 'set' in $b5032d99bc4c7ee9$var$_proxyData.get(object).handler && !(0, $jgfBo$isPolyfillKey)(key) ? $b5032d99bc4c7ee9$var$_proxyData.get(object).handler.set($b5032d99bc4c7ee9$var$_proxyData.get(object).object, key, value, object) : (object[key] = value, true)),
-    setPrototypeOf: ((old, object, proto)=>(old(object, proto), true)).bind(null, 'setPrototypeOf' in Object ? Object.setPrototypeOf.bind(Object) : (object, proto)=>(object.__proto__ = proto, object))
+    construct: (target, args, self)=>$b5032d99bc4c7ee9$var$_proxyData.has(target) && "construct" in $b5032d99bc4c7ee9$var$_proxyData.get(target).handler ? $b5032d99bc4c7ee9$var$_proxyData.get(target).handler.construct($b5032d99bc4c7ee9$var$_proxyData.get(target).object, args, self) : target === self ? new target(...args) : $b5032d99bc4c7ee9$export$c7c8cae26635c874.apply(target, self, args),
+    get: $b5032d99bc4c7ee9$var$protoChained((object, key)=>$b5032d99bc4c7ee9$var$_proxyData.has(object) && "get" in $b5032d99bc4c7ee9$var$_proxyData.get(object).handler && !(0, $jgfBo$isPolyfillKey)(key) ? $b5032d99bc4c7ee9$var$_proxyData.get(object).handler.get($b5032d99bc4c7ee9$var$_proxyData.get(object).object, key, object) : (0, $jgfBo$descGet)(object, key)),
+    set: $b5032d99bc4c7ee9$var$protoChained((object, key, value)=>$b5032d99bc4c7ee9$var$_proxyData.has(object) && "set" in $b5032d99bc4c7ee9$var$_proxyData.get(object).handler && !(0, $jgfBo$isPolyfillKey)(key) ? $b5032d99bc4c7ee9$var$_proxyData.get(object).handler.set($b5032d99bc4c7ee9$var$_proxyData.get(object).object, key, value, object) : ((0, $jgfBo$descSet)(object, key, value), true)),
+    has: $b5032d99bc4c7ee9$var$protoChained((object, key)=>$b5032d99bc4c7ee9$var$_proxyData.has(object) && "has" in $b5032d99bc4c7ee9$var$_proxyData.get(object).handler && !(0, $jgfBo$isPolyfillKey)(key) ? $b5032d99bc4c7ee9$var$_proxyData.get(object).handler.has($b5032d99bc4c7ee9$var$_proxyData.get(object).object, key) : (0, $jgfBo$desc)(object, key) !== null),
+    setPrototypeOf: ((old, object, proto)=>(old(object, proto), true)).bind(null, "setPrototypeOf" in Object ? Object.setPrototypeOf.bind(Object) : (object, proto)=>(object.__proto__ = proto, object))
 };
-const $b5032d99bc4c7ee9$export$38ba3e7950588cca = 'Proxy' in globalThis ? globalThis.Proxy : class ProxyTemp extends Function {
+const $b5032d99bc4c7ee9$export$38ba3e7950588cca = "Proxy" in globalThis ? globalThis.Proxy : class ProxyTemp extends Function {
     static __call = Function.prototype.call.call.bind(Function.prototype.call);
     constructor(object, handler){
         const m = ProxyTemp.__create(object, handler);
@@ -31,10 +32,10 @@ const $b5032d99bc4c7ee9$export$38ba3e7950588cca = 'Proxy' in globalThis ? global
     static __create(object, handler) {
         const fn = function(...args) {
             if (this instanceof fn) {
-                if ('construct' in handler) return handler.construct(object, args, this);
+                if ("construct" in handler) return handler.construct(object, args, this);
                 return new object(...args);
             } else {
-                if ('apply' in handler) return handler.apply(object, this, args);
+                if ("apply" in handler) return handler.apply(object, this, args);
                 return ProxyTemp.__call(object, this, ...args);
             }
         };
@@ -46,14 +47,14 @@ const $b5032d99bc4c7ee9$export$38ba3e7950588cca = 'Proxy' in globalThis ? global
     }
     static{
         for (const trap of [
-            'defineProperty',
-            'getOwnPropertyDescriptor',
-            'getOwnPropertyDescriptors',
-            'freeze',
-            'seal',
-            'preventExtensions',
-            'getPrototypeOf',
-            'setPrototypeOf'
+            "defineProperty",
+            "getOwnPropertyDescriptor",
+            "getOwnPropertyDescriptors",
+            "freeze",
+            "seal",
+            "preventExtensions",
+            "getPrototypeOf",
+            "setPrototypeOf"
         ])if (trap in Object) {
             $b5032d99bc4c7ee9$export$c7c8cae26635c874[trap] = new ProxyTemp(trap in $b5032d99bc4c7ee9$export$c7c8cae26635c874 ? $b5032d99bc4c7ee9$export$c7c8cae26635c874[trap] : Object[trap].bind(Object), {
                 apply (target, self, args) {
