@@ -4,15 +4,14 @@ import {isPolyfillKey as $jgfBo$isPolyfillKey, descGet as $jgfBo$descGet, descSe
 
 
 const $b5032d99bc4c7ee9$var$_proxyData = new (0, $jgfBo$_WeakMap)();
-function $b5032d99bc4c7ee9$var$protoChain(val, key, f, ...args) {
-    while(true){
-        if ($b5032d99bc4c7ee9$export$c7c8cae26635c874.getOwnPropertyDescriptor(val, key)) return f(val, key, ...args);
-        val = $b5032d99bc4c7ee9$export$c7c8cae26635c874.getPrototypeOf(val); //Simulate tail recursion
-    }
-    throw ``;
-}
-function $b5032d99bc4c7ee9$var$protoChained(f) {
-    return (val, key, ...args)=>$b5032d99bc4c7ee9$var$protoChain(val, key, f, ...args);
+function $b5032d99bc4c7ee9$var$protoChained(f, { Reflect: Reflect = $b5032d99bc4c7ee9$export$c7c8cae26635c874 } = {}) {
+    return (val, key, ...args)=>{
+        for(;;){
+            if (val === null) throw val[key]; //Throws before the `throw` statement
+            if (Reflect.getOwnPropertyDescriptor(val, key)) return f(val, key, ...args);
+            val = Reflect.getPrototypeOf(val); //Simulate tail recursion
+        }
+    };
 }
 const $b5032d99bc4c7ee9$export$c7c8cae26635c874 = "Reflect" in globalThis ? globalThis.Reflect : {
     apply: Function.prototype.apply.call.bind(Function.prototype.apply),

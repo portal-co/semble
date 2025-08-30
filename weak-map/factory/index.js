@@ -1,9 +1,9 @@
 import {polyfillKeys as $jHVxq$polyfillKeys} from "@portal-solutions/semble-common";
 
 
-function $854a52ea57c28a1f$export$2e2bcd8739ae039({ polyfillKeys: polyfillKeys = (0, $jHVxq$polyfillKeys), symId: symId = '__sembleWeakMap__', defineProperty: defineProperty, getOwnPropertyDescriptor: getOwnPropertyDescriptor, Reflect: Reflect, ...globalThis } = {}) {
+function $854a52ea57c28a1f$export$2e2bcd8739ae039({ polyfillKeys: polyfillKeys = (0, $jHVxq$polyfillKeys), symId: symId = "__sembleWeakMap__", defineProperty: defineProperty, getOwnPropertyDescriptor: getOwnPropertyDescriptor, Reflect: Reflect, Proxy: Proxy, Symbol: Symbol, Object: Object = globalThis.Object } = {}) {
     return class WeakMapTemp {
-        static __symbol = "Symbol" in globalThis && globalThis['Symbol'] !== undefined ? globalThis.Symbol(symId) : symId;
+        static __symbol = Symbol !== undefined ? Symbol(symId) : symId;
         static __create = "create" in Object ? Object.create.bind(Object, null) : ()=>({});
         static{
             let symbol = this.__symbol;
@@ -15,7 +15,7 @@ function $854a52ea57c28a1f$export$2e2bcd8739ae039({ polyfillKeys: polyfillKeys =
                 "preventExtensions"
             ]){
                 if (!(objectProperty in Object)) continue;
-                Object[objectProperty] = "Proxy" in globalThis && globalThis['Proxy'] !== undefined && Reflect !== undefined ? ((apply)=>new globalThis.Proxy(Object[objectProperty], {
+                Object[objectProperty] = Proxy !== undefined && Reflect !== undefined ? ((apply)=>new Proxy(Object[objectProperty], {
                         apply (target, thisArg, argArray) {
                             WeakMapTemp.__get(argArray[0]);
                             return apply(target, thisArg, argArray);

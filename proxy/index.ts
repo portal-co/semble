@@ -5,34 +5,27 @@ import { descGet, descSet, desc } from "@portal-solutions/semble-common";
 
 const _proxyData: WeakMap<any, { object: any; handler: ProxyHandler<any> }> =
   new _WeakMap();
-function protoChain<
-  T extends object,
-  X extends keyof T,
-  U,
-  Args extends unknown[]
->(
-  val: T,
-  key: X,
-  f: <T2 extends { [X2 in X]: any }>(t: T2, key: X, ...args: Args) => U,
-  ...args: Args
-): U {
-  while (1) {
-    if (_Reflect.getOwnPropertyDescriptor(val, key)) {
-      return f(val, key, ...args);
-    }
-    val = _Reflect.getPrototypeOf(val) as T; //Simulate tail recursion
-  }
-  throw ``;
-}
+
 function protoChained<
   T extends object,
   X extends keyof T,
   U,
   Args extends unknown[]
 >(
-  f: <T2 extends { [X2 in X]: any }>(t: T2, key: X, ...args: Args) => U
+  f: <T2 extends { [X2 in X]: any }>(t: T2, key: X, ...args: Args) => U,
+  { Reflect = _Reflect }: { Reflect?: typeof _Reflect } = {}
 ): (val: T, key: X, ...args: Args) => U {
-  return (val, key, ...args) => protoChain(val, key, f, ...args);
+  return (val, key, ...args) => {
+    for (;;) {
+      if (val === null) {
+        throw val[key]; //Throws before the `throw` statement
+      }
+      if (Reflect.getOwnPropertyDescriptor(val, key)) {
+        return f(val, key, ...args);
+      }
+      val = Reflect.getPrototypeOf(val) as T; //Simulate tail recursion
+    }
+  };
 }
 
 export const _Reflect: typeof Reflect =
@@ -72,7 +65,7 @@ export const _Reflect: typeof Reflect =
                 value,
                 object
               )
-            : (descSet(object, key, value), true)
+            : (descSet(object, key, value as any), true)
         ),
         has: protoChained((object, key) =>
           _proxyData.has(object) &&

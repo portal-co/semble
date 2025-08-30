@@ -1,15 +1,27 @@
 import { polyfillKeys as _polyfillKeys } from "@portal-solutions/semble-common";
 type _Reflect = typeof Reflect;
+export type FactoryOpts = {
+  polyfillKeys?: typeof _polyfillKeys;
+  symId?: string;
+  Symbol?: undefined | typeof globalThis.Symbol;
+  Proxy?: undefined | typeof globalThis.Proxy;
+  Reflect?: undefined | _Reflect;
+  defineProperty?: undefined | typeof Object.defineProperty;
+  getOwnPropertyDescriptor?: undefined | typeof Object.getOwnPropertyDescriptor;
+  Object?: typeof globalThis.Object;
+};
 export default function create({
   polyfillKeys = _polyfillKeys,
-  symId = '__sembleWeakMap__',
+  symId = "__sembleWeakMap__",
   defineProperty = undefined,
   getOwnPropertyDescriptor = undefined,
   Reflect = undefined,
-  ...globalThis
-}: { polyfillKeys?: typeof _polyfillKeys,symId?: string,Symbol?: undefined | typeof Symbol,Proxy?: undefined | typeof Proxy,Reflect?: undefined | _Reflect, defineProperty?: undefined | typeof Object.defineProperty, getOwnPropertyDescriptor?: undefined | typeof Object.getOwnPropertyDescriptor } = {}): typeof WeakMap {
+  Proxy = undefined,
+  Symbol = undefined,
+  Object = globalThis.Object,
+}: FactoryOpts = {}): typeof WeakMap {
   return class WeakMapTemp {
-    static __symbol = "Symbol" in globalThis && globalThis['Symbol'] !== undefined ? globalThis.Symbol(symId) : symId;
+    static __symbol = Symbol !== undefined ? Symbol(symId) : symId;
     static __create =
       "create" in Object ? Object.create.bind(Object, null) : () => ({});
     static {
@@ -21,9 +33,9 @@ export default function create({
           continue;
         }
         Object[objectProperty] =
-          "Proxy" in globalThis && globalThis['Proxy'] !== undefined && Reflect !== undefined
+          Proxy !== undefined && Reflect !== undefined
             ? ((apply) =>
-                new globalThis.Proxy(Object[objectProperty], {
+                new Proxy(Object[objectProperty], {
                   apply(target, thisArg, argArray) {
                     WeakMapTemp.__get(argArray[0]);
                     return apply(target, thisArg, argArray);
