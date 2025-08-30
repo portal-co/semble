@@ -75,7 +75,7 @@ function $5bff4b337e0e342d$export$2cd2c4e1dae73ff9(obj, key, val) {
     }
 }
 function $5bff4b337e0e342d$export$9493004cc2642ffa(object, key, val, desc = {}) {
-    if (!$5bff4b337e0e342d$export$fdbdd9d842f2999e) return object[key] = val;
+    if ($5bff4b337e0e342d$export$fdbdd9d842f2999e) return object[key] = val;
     $5bff4b337e0e342d$export$fdab3c20aae16ddf(object, key, {
         writable: true,
         ...desc,

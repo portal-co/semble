@@ -2,6 +2,7 @@
     "name": "@portal-solutions/semble",
     "workspaces": [
         "weak-map",
+        "weak-map/factory",
         "dataview",
         "proxy",
         "common"
