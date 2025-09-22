@@ -1,6 +1,9 @@
 import { _WeakMap } from "@portal-solutions/semble-weak-map";
 // import { polyfillKeys } from "@portal-solutions/semble-common";
-import { isPolyfillKey } from "@portal-solutions/semble-common";
+import {
+  isPolyfillKey,
+  protoChained as protoChainedCommon,
+} from "@portal-solutions/semble-common";
 import { descGet, descSet, desc } from "@portal-solutions/semble-common";
 
 const _proxyData: WeakMap<any, { object: any; handler: ProxyHandler<any> }> =
@@ -13,19 +16,16 @@ function protoChained<
   Args extends unknown[]
 >(
   f: <T2 extends { [X2 in X]: any }>(t: T2, key: X, ...args: Args) => U,
-  { Reflect = _Reflect }: { Reflect?: typeof _Reflect } = {}
+  {
+    Reflect = _Reflect,
+  }: {
+    Reflect?: {
+      getPrototypeOf: typeof globalThis.Reflect.getPrototypeOf;
+      getOwnPropertyDescriptor: typeof globalThis.Reflect.getOwnPropertyDescriptor;
+    };
+  } = {}
 ): (val: T, key: X, ...args: Args) => U {
-  return (val, key, ...args) => {
-    for (;;) {
-      if (val === null) {
-        throw val[key]; //Throws before the `throw` statement
-      }
-      if (Reflect.getOwnPropertyDescriptor(val, key)) {
-        return f(val, key, ...args);
-      }
-      val = Reflect.getPrototypeOf(val) as T; //Simulate tail recursion
-    }
-  };
+  return protoChainedCommon(f, { Reflect });
 }
 
 export const _Reflect: typeof Reflect =

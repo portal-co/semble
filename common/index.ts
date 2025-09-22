@@ -48,3 +48,34 @@ export const hide: <T, K extends keyof T>(object: T, key: K) => void =
     // noop for ES3
     return function () {};
   })();
+export function protoChained<
+  T extends object,
+  X extends keyof T,
+  U,
+  Args extends unknown[]
+>(
+  f: <T2 extends { [X2 in X]: any }>(t: T2, key: X, ...args: Args) => U,
+  {
+    Reflect = {
+      getPrototypeOf: Object?.getPrototypeOf,
+      getOwnPropertyDescriptor: Object?.getOwnPropertyDescriptor,
+    },
+  }: {
+    Reflect?: {
+      getPrototypeOf: typeof globalThis.Reflect.getPrototypeOf;
+      getOwnPropertyDescriptor: typeof globalThis.Reflect.getOwnPropertyDescriptor;
+    };
+  } = {}
+): (val: T, key: X, ...args: Args) => U {
+  return (val, key, ...args) => {
+    for (;;) {
+      if (val === null) {
+        throw val[key]; //Throws before the `throw` statement
+      }
+      if (Reflect.getOwnPropertyDescriptor(val, key)) {
+        return f(val, key, ...args);
+      }
+      val = Reflect.getPrototypeOf(val) as T; //Simulate tail recursion
+    }
+  };
+}

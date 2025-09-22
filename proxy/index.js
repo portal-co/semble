@@ -1,17 +1,13 @@
 import {_WeakMap as $jgfBo$_WeakMap} from "@portal-solutions/semble-weak-map";
-import {isPolyfillKey as $jgfBo$isPolyfillKey, descGet as $jgfBo$descGet, descSet as $jgfBo$descSet, desc as $jgfBo$desc} from "@portal-solutions/semble-common";
+import {protoChained as $jgfBo$protoChained, isPolyfillKey as $jgfBo$isPolyfillKey, descGet as $jgfBo$descGet, descSet as $jgfBo$descSet, desc as $jgfBo$desc} from "@portal-solutions/semble-common";
 
 
 
 const $b5032d99bc4c7ee9$var$_proxyData = new (0, $jgfBo$_WeakMap)();
 function $b5032d99bc4c7ee9$var$protoChained(f, { Reflect: Reflect = $b5032d99bc4c7ee9$export$c7c8cae26635c874 } = {}) {
-    return (val, key, ...args)=>{
-        for(;;){
-            if (val === null) throw val[key]; //Throws before the `throw` statement
-            if (Reflect.getOwnPropertyDescriptor(val, key)) return f(val, key, ...args);
-            val = Reflect.getPrototypeOf(val); //Simulate tail recursion
-        }
-    };
+    return (0, $jgfBo$protoChained)(f, {
+        Reflect: Reflect
+    });
 }
 const $b5032d99bc4c7ee9$export$c7c8cae26635c874 = "Reflect" in globalThis ? globalThis.Reflect : {
     apply: Function.prototype.apply.call.bind(Function.prototype.apply),

@@ -117,7 +117,19 @@ const $a131fa01916a4957$export$fe8985bb6374093c = function() {
     // noop for ES3
     return function() {};
 }();
+function $a131fa01916a4957$export$3f6f2ea090f96494(f, { Reflect: Reflect = {
+    getPrototypeOf: Object?.getPrototypeOf,
+    getOwnPropertyDescriptor: Object?.getOwnPropertyDescriptor
+} } = {}) {
+    return (val, key, ...args)=>{
+        for(;;){
+            if (val === null) throw val[key]; //Throws before the `throw` statement
+            if (Reflect.getOwnPropertyDescriptor(val, key)) return f(val, key, ...args);
+            val = Reflect.getPrototypeOf(val); //Simulate tail recursion
+        }
+    };
+}
 
 
-export {$a131fa01916a4957$export$6ff5fd5b618947f0 as polyfillKeys, $a131fa01916a4957$export$2cf60a7ba5fdc250 as isPolyfillKey, $a131fa01916a4957$export$fe8985bb6374093c as hide, $5bff4b337e0e342d$export$fdbdd9d842f2999e as deft, $5bff4b337e0e342d$export$b6b8a7926c5f8342 as getOwnPropertyDescriptor, $5bff4b337e0e342d$export$fdab3c20aae16ddf as defineProperty, $5bff4b337e0e342d$export$51987bb50e1f6752 as desc, $5bff4b337e0e342d$export$f84074484b0666be as descGet, $5bff4b337e0e342d$export$2cd2c4e1dae73ff9 as descSet, $5bff4b337e0e342d$export$9493004cc2642ffa as setNonEnumerableBaseline};
+export {$a131fa01916a4957$export$6ff5fd5b618947f0 as polyfillKeys, $a131fa01916a4957$export$2cf60a7ba5fdc250 as isPolyfillKey, $a131fa01916a4957$export$fe8985bb6374093c as hide, $a131fa01916a4957$export$3f6f2ea090f96494 as protoChained, $5bff4b337e0e342d$export$fdbdd9d842f2999e as deft, $5bff4b337e0e342d$export$b6b8a7926c5f8342 as getOwnPropertyDescriptor, $5bff4b337e0e342d$export$fdab3c20aae16ddf as defineProperty, $5bff4b337e0e342d$export$51987bb50e1f6752 as desc, $5bff4b337e0e342d$export$f84074484b0666be as descGet, $5bff4b337e0e342d$export$2cd2c4e1dae73ff9 as descSet, $5bff4b337e0e342d$export$9493004cc2642ffa as setNonEnumerableBaseline};
 //# sourceMappingURL=index.js.map
