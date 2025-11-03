@@ -1,4 +1,3 @@
-export const _Reflect: typeof Reflect;
-export const _Proxy: typeof Proxy;
+export const _Proxy: any, _Reflect: any;
 
 //# sourceMappingURL=index.d.ts.map

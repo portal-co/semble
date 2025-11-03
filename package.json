@@ -5,6 +5,7 @@
         "weak-map/factory",
         "dataview",
         "proxy",
+        "proxy/factory",
         "common"
     ],
     "devDependencies": {
