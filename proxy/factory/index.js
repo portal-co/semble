@@ -5,26 +5,42 @@ import {protoChained as $abDdz$protoChained, isPolyfillKey as $abDdz$isPolyfillK
 function $aaee49ddaa217a0d$export$2e2bcd8739ae039(opts = {}) {
     const _WeakMap = opts.WeakMap ?? globalThis.WeakMap;
     const { Function: Function = globalThis.Function, Object: Object = globalThis.Object } = opts;
+    const oldDefineProperty = Object.defineProperty.bind(Object);
     const _proxyData = new _WeakMap();
     function protoChained(f, { Reflect: Reflect = _Reflect } = {}) {
         return (0, $abDdz$protoChained)(f, {
             Reflect: Reflect
         });
     }
+    let ospo;
     const _Reflect = {
         apply: Function.prototype.apply.call.bind(Function.prototype.apply),
         construct: (target, args, self)=>_proxyData.has(target) && "construct" in _proxyData.get(target).handler ? _proxyData.get(target).handler.construct(_proxyData.get(target).object, args, self) : target === self ? new target(...args) : _Reflect.apply(target, self, args),
         get: protoChained((object, key)=>_proxyData.has(object) && "get" in _proxyData.get(object).handler && !(0, $abDdz$isPolyfillKey)(key) ? _proxyData.get(object).handler.get(_proxyData.get(object).object, key, object) : (0, $abDdz$descGet)(object, key)),
         set: protoChained((object, key, value)=>_proxyData.has(object) && "set" in _proxyData.get(object).handler && !(0, $abDdz$isPolyfillKey)(key) ? _proxyData.get(object).handler.set(_proxyData.get(object).object, key, value, object) : ((0, $abDdz$descSet)(object, key, value), true)),
         has: protoChained((object, key)=>_proxyData.has(object) && "has" in _proxyData.get(object).handler && !(0, $abDdz$isPolyfillKey)(key) ? _proxyData.get(object).handler.has(_proxyData.get(object).object, key) : (0, $abDdz$desc)(object, key) !== null),
-        setPrototypeOf: ((old, object, proto)=>(old(object, proto), true)).bind(null, "setPrototypeOf" in Object ? Object.setPrototypeOf.bind(Object) : (object, proto)=>(object.__proto__ = proto, object))
+        setPrototypeOf: ospo = ((old, object, proto)=>(old(object, proto), true)).bind(null, "setPrototypeOf" in Object ? Object.setPrototypeOf.bind(Object) : (object, proto)=>(object.__proto__ = proto, object))
     };
+    function reflectProp(obj, key) {
+        return {
+            get: ()=>_Reflect.get(obj, key, obj),
+            set: (v)=>_Reflect.set(obj, key, v, obj),
+            enumerable: false,
+            configurable: false
+        };
+    }
     const _Proxy = class ProxyTemp extends Function {
         static __call = Function.prototype.call.call.bind(Function.prototype.call);
         constructor(object, handler){
             const m = ProxyTemp.__create(object, handler);
-            _Reflect.setPrototypeOf(m, ProxyTemp.prototype);
+            ospo(m, ProxyTemp.prototype);
             return m;
+        }
+        static __link(proxy) {
+            const { object: object } = _proxyData.get(proxy);
+            for(const prop in object)try {
+                oldDefineProperty(object, prop, reflectProp(object, prop));
+            } catch  {}
         }
         static __create(object, handler) {
             const fn = function(...args) {
@@ -40,6 +56,7 @@ function $aaee49ddaa217a0d$export$2e2bcd8739ae039(opts = {}) {
                 object: object,
                 handler: handler
             });
+            ProxyTemp.__link(fn);
             return fn;
         }
         static{

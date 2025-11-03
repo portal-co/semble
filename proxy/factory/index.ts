@@ -1,4 +1,3 @@
-
 // import { polyfillKeys } from "@portal-solutions/semble-common";
 import {
   isPolyfillKey,
@@ -17,6 +16,7 @@ export default function create(opts: FactoryOpts = {}): {
 } {
   const _WeakMap = opts.WeakMap ?? globalThis.WeakMap;
   const { Function = globalThis.Function, Object = globalThis.Object } = opts;
+  const oldDefineProperty = Object.defineProperty.bind(Object);
   const _proxyData: WeakMap<any, { object: any; handler: ProxyHandler<any> }> =
     new _WeakMap();
 
@@ -38,7 +38,7 @@ export default function create(opts: FactoryOpts = {}): {
   ): (val: T, key: X, ...args: Args) => U {
     return protoChainedCommon(f, { Reflect });
   }
-
+  let ospo: typeof Reflect.setPrototypeOf;
   const _Reflect: typeof Reflect = {
     apply: Function.prototype.apply.call.bind(Function.prototype.apply),
     construct: (target, args, self) =>
@@ -85,20 +85,37 @@ export default function create(opts: FactoryOpts = {}): {
         : desc(object, key) !== null
     ),
 
-    setPrototypeOf: ((old, object, proto) => (old(object, proto), true)).bind(
+    setPrototypeOf: (ospo = ((old, object, proto) => (
+      old(object, proto), true
+    )).bind(
       null,
       "setPrototypeOf" in Object
         ? Object.setPrototypeOf.bind(Object)
         : (object, proto) => ((object.__proto__ = proto), object)
-    ),
+    )),
   } as any;
+  function reflectProp(obj: any, key: keyof any): PropertyDescriptor {
+    return {
+      get: () => _Reflect.get(obj, key, obj),
+      set: (v) => _Reflect.set(obj, key, v, obj),
+      enumerable: false,
+      configurable: false,
+    };
+  }
   const _Proxy: typeof Proxy = class ProxyTemp extends Function {
     static __call = Function.prototype.call.call.bind(Function.prototype.call);
     constructor(object, handler: ProxyHandler<any>) {
       if (false) super(); //Obey TS
       const m = ProxyTemp.__create(object, handler);
-      _Reflect.setPrototypeOf(m, ProxyTemp.prototype);
+      ospo(m, ProxyTemp.prototype);
       return m;
+    }
+    static __link(proxy) {
+      const { object } = _proxyData.get(proxy)!;
+      for (const prop in object)
+        try {
+          oldDefineProperty(object, prop, reflectProp(object, prop));
+        } catch {}
     }
     static __create(object, handler: ProxyHandler<any>) {
       const fn = function (...args) {
@@ -115,6 +132,7 @@ export default function create(opts: FactoryOpts = {}): {
         }
       };
       _proxyData.set(fn, { object, handler });
+      ProxyTemp.__link(fn);
       return fn;
     }
     static {
