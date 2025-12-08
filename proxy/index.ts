@@ -4,4 +4,4 @@ import create from "@portal-solutions/semble-proxy.factory";
 export const { Proxy: _Proxy, Reflect: _Reflect } =
   "Proxy" in globalThis && "Reflect" in globalThis
     ? globalThis
-    : create({ _WeakMap });
+    : create({ WeakMap: _WeakMap });
