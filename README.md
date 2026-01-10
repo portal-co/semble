@@ -1,13 +1,14 @@
 # @portal-solutions/semble
 
 ## Description
-Project semble
+A TypeScript workspace (`semble`) for "weak-map", "proxy", and "dataview" implementations. Likely a polyfill or utility library.
 
 ## Goals
-- [ ] Add project goals
+- [ ] Implement WeakMap, Proxy, DataView
+- [ ] Provide consistent behavior
 
 ## Progress
-- [ ] Initial setup
+- [ ] Workspace setup
 
 ---
 *AI assisted*
