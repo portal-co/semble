@@ -1,12 +1,12 @@
 {
   "name": "@portal-solutions/semble",
   "workspaces": [
-    "weak-map",
-    "weak-map/factory",
-    "dataview",
-    "proxy",
-    "proxy/factory",
-    "common"
+    "rt/weak-map",
+    "rt/weak-map/factory",
+    "rt/dataview",
+    "rt/proxy",
+    "rt/proxy/factory",
+    "rt/common"
   ],
   "scripts": {
     "test": "vitest run",
