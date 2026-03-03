@@ -11,7 +11,7 @@
   "license": "ISC",
   "type": "module",
   "types": "index.d.ts",
-  "source": "index.ts",
+  "zshy": "index.ts",
   "dependencies": {
     "@portal-solutions/semble-weak-map": "^0.1.0",
     "@portal-solutions/semble-common": "^0.1.0"
