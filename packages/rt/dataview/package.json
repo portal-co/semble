@@ -2,7 +2,7 @@
   "name": "@portal-solutions/semble-dataview",
   "version": "0.1.4",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/index.cjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,10 +10,21 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "types": "index.d.ts",
+  "types": "./dist/index.d.cts",
   "zshy": "index.ts",
   "dependencies": {
     "@portal-solutions/semble-weak-map": "^0.1.0",
     "@portal-solutions/semble-common": "^0.1.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.cts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
   }
 }

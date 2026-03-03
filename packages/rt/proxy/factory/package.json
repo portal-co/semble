@@ -2,8 +2,8 @@
   "name": "@portal-solutions/semble-proxy.factory",
   "version": "0.1.3",
   "description": "",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.cts",
   "zshy": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +15,16 @@
   "dependencies": {
     "@portal-solutions/semble-weak-map.factory": "^0.1.0",
     "@portal-solutions/semble-common": "^0.1.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.cts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
   }
 }
